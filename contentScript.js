@@ -15,7 +15,7 @@ function getAcceptedAnswer() {
 function getAlternativeAnswer() { // SE NON PRESENTE RISPOSTA CON SPUNTA
 	var answers = document.querySelectorAll('.answer');
 	var highestVote = 0;
-	var errorMessage = "No valid answer";
+	var errorMessage = "Oops! No valid answers!";
 	var definitiveAnswer = null;
 
 	if (answers) { // SE PRESENTE ALMENO UNA RISPOSTA QUALSIASI
@@ -39,3 +39,7 @@ function getAlternativeAnswer() { // SE NON PRESENTE RISPOSTA CON SPUNTA
 }
 
 console.log(acceptedAnswer); // ONLY FOR DEBUG PORPOSE
+
+if(question && acceptedAnswer) {
+	// PRIMA DI LANCIARE LA MODALE CONTROLLARE CHE SIA PRESENTE LA DOMANDA!
+}
