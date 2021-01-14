@@ -1,6 +1,6 @@
 let title = document.querySelector('h1');
 let question = document.querySelector('.question');
-let acceptedAnswer = acceptedAnswer();
+let acceptedAnswer = getAcceptedAnswer();
 
 function getAcceptedAnswer() {
 	var definitiveAnswer = document.querySelector('.accepted-answer') ? document.querySelector('.accepted-answer') : null;
@@ -13,9 +13,10 @@ function getAcceptedAnswer() {
 }
 
 function getAlternativeAnswer() { // SE NON PRESENTE RISPOSTA CON SPUNTA
-	let answers = document.querySelectorAll('.answer');
-	let highestVote = 0;
-	let errorMessage = "No valid answer";
+	var answers = document.querySelectorAll('.answer');
+	var highestVote = 0;
+	var errorMessage = "No valid answer";
+	var definitiveAnswer = null;
 
 	if (answers) { // SE PRESENTE ALMENO UNA RISPOSTA QUALSIASI
 		answers.forEach(answer => {
@@ -37,5 +38,4 @@ function getAlternativeAnswer() { // SE NON PRESENTE RISPOSTA CON SPUNTA
 	}
 }
 
-console.log(highestVote); // ONLY FOR DEBUG PORPOSE
 console.log(acceptedAnswer); // ONLY FOR DEBUG PORPOSE
