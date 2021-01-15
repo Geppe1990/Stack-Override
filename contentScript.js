@@ -1,6 +1,6 @@
 var questionSelector = document.querySelector('[data-questionid]');
 var questionId = questionSelector ? parseInt(questionSelector.dataset.questionid) : null;
-var apiOpt = {
+const OPT = {
 	"address": "https://api.stackexchange.com/2.2/questions/",
 	"parameters": "?order=desc&sort=activity&site=stackoverflow&filter=withbody"
 }
@@ -9,7 +9,7 @@ var answer = null;
 
 
 function getQuestion(id) {
-	var api = apiOpt.address + id + apiOpt.parameters;
+	var api = OPT.address + id + OPT.parameters;
 
 	return fetch(api)
 		.then(response => response.json())
@@ -21,7 +21,7 @@ function getQuestion(id) {
 }
 
 function getAnswers(id) {
-	var api = apiOpt.address + id + "/answers" + apiOpt.parameters;
+	var api = OPT.address + id + "/answers" + OPT.parameters;
 	
 	return fetch(api)
 		.then(response => response.json())
