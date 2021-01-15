@@ -1,31 +1,19 @@
 var questionSelector = document.querySelector('[data-questionid]');
 var questionId = questionSelector ? parseInt(questionSelector.dataset.questionid) : null;
+var question = {};
+var answer = null;
 const OPT = {
 	"address": "https://api.stackexchange.com/2.2/questions/",
 	"parameters": "?order=desc&sort=activity&site=stackoverflow&filter=withbody"
 }
-var question = {};
-var answer = null;
 
 
-function getQuestion(id) {
-	var api = OPT.address + id + OPT.parameters;
-
+function getContent(id, type) {
+	var api = type == "question" || null ? OPT.address + id + OPT.parameters : OPT.address + id + "/answers" + OPT.parameters;
+	
 	return fetch(api)
 		.then(response => response.json())
 		.then(data => data)
-		.catch((error) => {
-			console.error('Error:', error);
-		});
-	
-}
-
-function getAnswers(id) {
-	var api = OPT.address + id + "/answers" + OPT.parameters;
-	
-	return fetch(api)
-		.then(response => response.json())
-		.then(data =>  data)
 		.catch((error) => {
 			console.error('Error:', error);
 		});
@@ -36,7 +24,7 @@ function manageQuestion(data) {
 	question.body = data.items[0].body;
 	question.acceptedAnswerId = data.items[0].accepted_answer_id ? data.items[0].accepted_answer_id : null;
 
-	getAnswers(questionId).then(function(answerData) {
+	getContent(questionId, "answer").then(function(answerData) {
 		manageAnswers(answerData);
 
 	});
@@ -67,7 +55,7 @@ function createModal(question, answer) {
 }
 
 if(questionId) {
-	getQuestion(questionId).then(function(questionData) {
+	getContent(questionId, "question").then(function(questionData) {
 		manageQuestion(questionData);
 	})
 }
