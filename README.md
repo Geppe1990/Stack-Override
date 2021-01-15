@@ -11,3 +11,13 @@ API
     - (API) https://api.stackexchange.com/docs
     - (Recupera la domanda) https://api.stackexchange.com/2.2/questions/6099949?order=desc&sort=activity&site=stackoverflow
     - (Recupera la domanda con il body) https://api.stackexchange.com/2.2/questions/6099949?order=desc&sort=activity&site=stackoverflow&filter=withbody
+
+
+Install and develop
+    - npm install
+    - gulp compress
+    - gulp build
+
+TODO:
+    - Creare struttura src/dist per scss/css
+    - Linter

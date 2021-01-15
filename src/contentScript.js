@@ -13,6 +13,7 @@ function getContent(id, type) {
 	var url = type == "question" || null ? OPT.address + id + OPT.parameters : OPT.address + id + OPT.answers + OPT.parameters;
 	
 	return fetch(url)
+		.then(response => response.json())
 		.then(data => data)
 		.catch((error) => {
 			console.error('Error:', error);
@@ -20,13 +21,15 @@ function getContent(id, type) {
 }
 
 function manageQuestion(data) {
-	question.title = data.items[0].title;
-	question.body = data.items[0].body;
-	question.acceptedAnswerId = data.items[0].accepted_answer_id ? data.items[0].accepted_answer_id : null;
-
-	getContent(questionId, "answer").then(function(answerData) {
-		manageAnswers(answerData);
-	});
+	if(data) {
+		question.title = data.items[0].title ? data.items[0].title : null;
+		question.body = data.items[0].body ? data.items[0].body : null;
+		question.acceptedAnswerId = data.items[0].accepted_answer_id ? data.items[0].accepted_answer_id : null;
+	
+		getContent(questionId, "answer").then(function(answerData) {
+			manageAnswers(answerData);
+		});
+	}
 }
 
 function manageAnswers(data) {
