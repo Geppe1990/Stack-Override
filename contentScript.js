@@ -1,45 +1,73 @@
-let title = document.querySelector('h1');
-let question = document.querySelector('.question');
-let acceptedAnswer = getAcceptedAnswer();
-
-function getAcceptedAnswer() {
-	var definitiveAnswer = document.querySelector('.accepted-answer') ? document.querySelector('.accepted-answer') : null;
-
-	if (definitiveAnswer) { // SE PRESENTE RISPOSTA CON SPUNTA
-		return definitiveAnswer
-	} else {
-		return getAlternativeAnswer();
-	}
+var questionSelector = document.querySelector('[data-questionid]');
+var questionId = questionSelector ? parseInt(questionSelector.dataset.questionid) : null;
+var apiOpt = {
+	"address": "https://api.stackexchange.com/2.2/questions/",
+	"parameters": "?order=desc&sort=activity&site=stackoverflow&filter=withbody"
 }
+var question = {};
+var answer = null;
 
-function getAlternativeAnswer() { // SE NON PRESENTE RISPOSTA CON SPUNTA
-	var answers = document.querySelectorAll('.answer');
-	var highestVote = 0;
-	var errorMessage = "Oops! No valid answers!";
-	var definitiveAnswer = null;
 
-	if (answers) { // SE PRESENTE ALMENO UNA RISPOSTA QUALSIASI
-		answers.forEach(answer => {
-			var vote = parseInt(answer.querySelector("[itemprop='upvoteCount']").innerText);
+function getQuestion(id) {
+	var api = apiOpt.address + id + apiOpt.parameters;
 
-			if (vote > highestVote) {
-				highestVote = vote;
-				definitiveAnswer = answer
-			}
+	return fetch(api)
+		.then(response => response.json())
+		.then(data => data)
+		.catch((error) => {
+			console.error('Error:', error);
 		});
+	
+}
 
-		if (definitiveAnswer) { // SE HO UNA RISPOSTA VALIDA CON VOTO PIU ALTO
-			return definitiveAnswer
-		} else {
-			return errorMessage; // SE NON HO UNA RISPOSTA VALIDA
+function getAnswers(id) {
+	var api = apiOpt.address + id + "/answers" + apiOpt.parameters;
+	
+	return fetch(api)
+		.then(response => response.json())
+		.then(data =>  data)
+		.catch((error) => {
+			console.error('Error:', error);
+		});
+}
+
+function manageQuestion(data) {
+	question.title = data.items[0].title;
+	question.body = data.items[0].body;
+	question.acceptedAnswerId = data.items[0].accepted_answer_id ? data.items[0].accepted_answer_id : null;
+
+	getAnswers(questionId).then(function(answerData) {
+		manageAnswers(answerData);
+
+	});
+}
+
+function manageAnswers(data) {
+	var questionAnswer = null;
+	var score = 0;
+	var answers = data.items;
+
+	answers.forEach(answer => {
+		if(answer.score > score) {
+			score = answer.score;
+			questionAnswer = answer.body
 		}
-	} else { // SE NON PRESENTE NESSUNA RISPOSTA
-		return errorMessage;
+	});
+	answer = questionAnswer;
+
+	if(question) {
+		createModal(question, answer)
 	}
 }
 
-console.log(acceptedAnswer); // ONLY FOR DEBUG PORPOSE
+function createModal(question, answer) {
+	console.log(question);
+	console.log(answer);
+	debugger
+}
 
-if(question && acceptedAnswer) {
-	// PRIMA DI LANCIARE LA MODALE CONTROLLARE CHE SIA PRESENTE LA DOMANDA!
+if(questionId) {
+	getQuestion(questionId).then(function(questionData) {
+		manageQuestion(questionData);
+	})
 }
