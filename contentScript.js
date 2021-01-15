@@ -27,7 +27,6 @@ function manageQuestion(data) {
 
 	getContent(questionId, "answer").then(function(answerData) {
 		manageAnswers(answerData);
-
 	});
 }
 
