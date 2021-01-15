@@ -4,12 +4,13 @@ var question = {};
 var answer = null;
 const OPT = {
 	"address": "https://api.stackexchange.com/2.2/questions/",
-	"parameters": "?order=desc&sort=activity&site=stackoverflow&filter=withbody"
+	"parameters": "?order=desc&sort=activity&site=stackoverflow&filter=withbody",
+	"answers": "/answers"
 }
 
 
 function getContent(id, type) {
-	var api = type == "question" || null ? OPT.address + id + OPT.parameters : OPT.address + id + "/answers" + OPT.parameters;
+	var api = type == "question" || null ? OPT.address + id + OPT.parameters : OPT.address + id + OPT.answers + OPT.parameters;
 	
 	return fetch(api)
 		.then(response => response.json())
