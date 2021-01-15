@@ -10,9 +10,9 @@ const OPT = {
 
 
 function getContent(id, type) {
-	var api = type == "question" || null ? OPT.address + id + OPT.parameters : OPT.address + id + OPT.answers + OPT.parameters;
+	var url = type == "question" || null ? OPT.address + id + OPT.parameters : OPT.address + id + OPT.answers + OPT.parameters;
 	
-	return fetch(api)
+	return fetch(url)
 		.then(data => data)
 		.catch((error) => {
 			console.error('Error:', error);
