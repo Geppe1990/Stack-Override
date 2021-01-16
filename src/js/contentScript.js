@@ -51,7 +51,7 @@ function manageAnswers(data) {
 	})
 	answer = questionAnswer
 
-	if (question) {
+	if (question && answer) {
 		createModal(question, answer)
 	}
 }
