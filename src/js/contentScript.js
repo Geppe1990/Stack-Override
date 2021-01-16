@@ -10,7 +10,7 @@ var OPT = {
 
 function createModal(question, answer) {
 	var MODAL_OPT = {
-		footer: true,
+		footer: false,
 		stickyFooter: false,
 		closeMethods: ['overlay', 'button', 'escape'],
 		closeLabel: 'Close'
@@ -18,11 +18,6 @@ function createModal(question, answer) {
 	var modal = new tingle.modal(MODAL_OPT)
 
 	modal.setContent('<h1>' + question.title + '</h1>' + question.body + '<hr/><h2>Answer</h2>' + answer)
-
-	modal.addFooterBtn('Close', 'tingle-btn tingle-btn--danger', function () {
-		modal.close()
-	})
-
 	modal.open()
 }
 
