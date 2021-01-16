@@ -17,7 +17,7 @@ gulp.task('uglifyJS', function () {
 
 gulp.task('lintJS', function () {
 	return pipeline(
-		gulp.src(["./src/js/*/*.js", "./gulpfile.js"]),
+		gulp.src(["./src/js/*.js"]),
 		eslint(),
 		eslint.format(),
 		eslint.failAfterError()
