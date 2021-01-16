@@ -26,6 +26,6 @@
     "content_scripts": [{
         "matches": ["*://stackoverflow.com/questions/*"],
         "run_at": "document_idle",
-        "js": ["src/contentScript.js"]
+        "js": ["dist/js/contentScript.min.js"]
     }]
 }

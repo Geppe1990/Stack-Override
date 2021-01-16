@@ -1,19 +1,31 @@
-var gulp = require('gulp');
-var uglify = require('gulp-uglify');
-var pipeline = require('readable-stream').pipeline;
-var rename = require('gulp-rename');
+const gulp = require('gulp');
+const uglify = require('gulp-uglify');
+const pipeline = require('readable-stream').pipeline;
+const rename = require('gulp-rename');
+const eslint = require("gulp-eslint");
 
-gulp.task('compress', function () {
+gulp.task('uglifyJS', function () {
 	return pipeline(
-		gulp.src('src/*.js'),
+		gulp.src('./src/js/*.js'),
 		uglify(),
-		rename({ suffix: '.min' }),
-		gulp.dest('dist'),
+		rename({
+			suffix: '.min'
+		}),
+		gulp.dest('./dist/js/'),
 	);
 });
 
-gulp.task('watch', function () {
-    gulp.watch('./src/*.js', gulp.series('compress'));
+gulp.task('lintJS', function () {
+	return pipeline(
+		gulp.src(["./src/js/*/*.js", "./gulpfile.js"]),
+		eslint(),
+		eslint.format(),
+		eslint.failAfterError()
+	)
 });
 
-gulp.task('default', gulp.series('compress', 'watch'));
+gulp.task('watch', function () {
+	gulp.watch('./src/js/*.js', gulp.series('lintJS', 'uglifyJS'));
+});
+
+gulp.task('default', gulp.series('uglifyJS', 'watch'));
