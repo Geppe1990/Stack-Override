@@ -9,9 +9,21 @@ var OPT = {
 }
 
 function createModal(question, answer) {
-	console.log(question)
-	console.log(answer)
-	debugger
+	var MODAL_OPT = {
+		footer: true,
+		stickyFooter: false,
+		closeMethods: ['overlay', 'button', 'escape'],
+		closeLabel: 'Close'
+	}
+	var modal = new tingle.modal(MODAL_OPT)
+
+	modal.setContent('<h1>' + question.title + '</h1>' + question.body + '<hr/>' + answer)
+
+	modal.addFooterBtn('Close', 'tingle-btn tingle-btn--danger', function () {
+		modal.close()
+	})
+
+	modal.open()
 }
 
 async function getContent(id, type) {
@@ -32,31 +44,31 @@ function manageAnswers(data) {
 	var answers = data.items
 
 	answers.forEach(answer => {
-		if(answer.score > score) {
+		if (answer.score > score) {
 			score = answer.score
 			questionAnswer = answer.body
 		}
 	})
 	answer = questionAnswer
 
-	if(question) {
+	if (question) {
 		createModal(question, answer)
 	}
 }
 
 function manageQuestion(data) {
-	if(data) {
+	if (data) {
 		question.title = data.items[0].title ? data.items[0].title : null
 		question.body = data.items[0].body ? data.items[0].body : null
 		question.acceptedAnswerId = data.items[0].accepted_answer_id ? data.items[0].accepted_answer_id : null
-		getContent(questionId, 'answer').then(function(answerData) {
+		getContent(questionId, 'answer').then(function (answerData) {
 			manageAnswers(answerData)
 		})
 	}
 }
 
-if(questionId) {
-	getContent(questionId, 'question').then(function(questionData) {
+if (questionId) {
+	getContent(questionId, 'question').then(function (questionData) {
 		manageQuestion(questionData)
 	})
 }

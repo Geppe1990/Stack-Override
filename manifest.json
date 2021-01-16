@@ -26,6 +26,7 @@
     "content_scripts": [{
         "matches": ["*://stackoverflow.com/questions/*"],
         "run_at": "document_idle",
-        "js": ["dist/js/contentScript.min.js"]
+        "css": ["./node_modules/tingle.js/dist/tingle.min.css"],
+        "js": ["./node_modules/tingle.js/dist/tingle.min.js", "dist/js/contentScript.min.js"]
     }]
 }
