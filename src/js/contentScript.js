@@ -17,7 +17,7 @@ function createModal(question, answer) {
 	}
 	var modal = new tingle.modal(MODAL_OPT)
 
-	modal.setContent('<h1>' + question.title + '</h1>' + question.body + '<hr/>' + answer)
+	modal.setContent('<h1>' + question.title + '</h1>' + question.body + '<hr/><h2>Answer</h2>' + answer)
 
 	modal.addFooterBtn('Close', 'tingle-btn tingle-btn--danger', function () {
 		modal.close()
