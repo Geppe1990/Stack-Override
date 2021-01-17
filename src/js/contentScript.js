@@ -62,7 +62,7 @@ function manageAnswers(data) {
 		}
 	})
 
-	answer = highlightCode(questionAnswer)
+	answer = questionAnswer ? highlightCode(questionAnswer) : null
 
 	if (question && answer) {
 		createModal(question, answer)
