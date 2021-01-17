@@ -8,6 +8,17 @@ var OPT = {
 	'answers': '/answers'
 }
 
+function highlightCode(str) {
+	var parser = new DOMParser()
+	var doc = parser.parseFromString(str, 'text/html')
+
+	doc.querySelectorAll('pre code').forEach((block) => {
+		hljs.highlightBlock(block)
+	})
+
+	return doc.body.innerHTML
+}
+
 function createModal(question, answer) {
 	var MODAL_OPT = {
 		footer: false,
@@ -44,7 +55,8 @@ function manageAnswers(data) {
 			questionAnswer = answer.body
 		}
 	})
-	answer = questionAnswer
+
+	answer = highlightCode(questionAnswer)
 
 	if (question && answer) {
 		createModal(question, answer)
@@ -54,7 +66,7 @@ function manageAnswers(data) {
 function manageQuestion(data) {
 	if (data) {
 		question.title = data.items[0].title ? data.items[0].title : null
-		question.body = data.items[0].body ? data.items[0].body : null
+		question.body = data.items[0].body ? highlightCode(data.items[0].body) : null
 		question.acceptedAnswerId = data.items[0].accepted_answer_id ? data.items[0].accepted_answer_id : null
 		getContent(questionId, 'answer').then(function (answerData) {
 			manageAnswers(answerData)
