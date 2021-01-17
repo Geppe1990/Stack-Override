@@ -4,13 +4,8 @@
     "description": "Trova la migliore risposta su Stack Overflow!",
     "manifest_version": 2,
     "permissions": ["storage", "declarativeContent", "activeTab"],
-    "background": {
-        "scripts": ["background.js"],
-        "persistent": false
-    },
     "web_accessible_resources": ["images/check.svg"],
     "page_action": {
-        "default_popup": "popup.html",
         "default_icon": {
             "16": "images/get_started16.png",
             "32": "images/get_started32.png",
