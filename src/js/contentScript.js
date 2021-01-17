@@ -1,7 +1,7 @@
 var questionSelector = document.querySelector('[data-questionid]')
 var questionId = questionSelector ? parseInt(questionSelector.dataset.questionid) : null
 var question = {}
-var answer = null
+var answer = {}
 var OPT = {
 	'address': 'https://api.stackexchange.com/2.2/questions/',
 	'parameters': '?order=desc&sort=activity&site=stackoverflow&filter=withbody',
@@ -27,14 +27,14 @@ function createModal(question, answer) {
 		closeLabel: 'Close'
 	}
 	var modal = new tingle.modal(MODAL_OPT)
-	var answerTitle = '<hr/><h2 class="heading answer__title">Answer</h2>'
+	var answerTitle = '<hr/><h2 class="heading answer__title">Answer (' + answer.score + ') </h2>'
 
 	if(question.acceptedAnswer) {
 		var svgPath = chrome.extension.getURL('images/check.svg')
 		answerTitle = '<hr/><div><img class="check" src="' + svgPath + '" alt="Check icon">&nbsp;<h2 class="heading answer__title" >Answer</h2></div>'
 	}
 
-	modal.setContent('<h1 class="heading">' + question.title + '</h1>' + question.body + answerTitle + answer)
+	modal.setContent('<h1 class="heading">' + question.title + '</h1>' + question.body + answerTitle + answer.body)
 	modal.open()
 }
 
@@ -62,7 +62,12 @@ function manageAnswers(data) {
 		}
 	})
 
-	answer = questionAnswer ? highlightCode(questionAnswer) : null
+	if(questionAnswer) {
+		answer.body = highlightCode(questionAnswer)
+		answer.score = score
+	} else {
+		answer = null
+	}
 
 	if (question && answer) {
 		createModal(question, answer)
