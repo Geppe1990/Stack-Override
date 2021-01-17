@@ -8,6 +8,7 @@
         "scripts": ["background.js"],
         "persistent": false
     },
+    "web_accessible_resources": ["images/check.svg"],
     "page_action": {
         "default_popup": "popup.html",
         "default_icon": {

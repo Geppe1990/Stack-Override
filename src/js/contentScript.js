@@ -27,8 +27,14 @@ function createModal(question, answer) {
 		closeLabel: 'Close'
 	}
 	var modal = new tingle.modal(MODAL_OPT)
+	var answerTitle = '<hr/><h2 class="heading answer__title">Answer</h2>'
 
-	modal.setContent('<h1>' + question.title + '</h1>' + question.body + '<hr/><h2>Answer</h2>' + answer)
+	if(question.acceptedAnswer) {
+		var svgPath = chrome.extension.getURL('images/check.svg')
+		answerTitle = '<hr/><div><img class="check" src="' + svgPath + '" alt="Check icon">&nbsp;<h2 class="heading answer__title" >Answer</h2></div>'
+	}
+
+	modal.setContent('<h1 class="heading">' + question.title + '</h1>' + question.body + answerTitle + answer)
 	modal.open()
 }
 
@@ -67,7 +73,8 @@ function manageQuestion(data) {
 	if (data) {
 		question.title = data.items[0].title ? data.items[0].title : null
 		question.body = data.items[0].body ? highlightCode(data.items[0].body) : null
-		question.acceptedAnswerId = data.items[0].accepted_answer_id ? data.items[0].accepted_answer_id : null
+		question.acceptedAnswer = data.items[0].accepted_answer_id ? true : false
+
 		getContent(questionId, 'answer').then(function (answerData) {
 			manageAnswers(answerData)
 		})
