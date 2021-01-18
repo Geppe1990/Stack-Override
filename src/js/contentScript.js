@@ -31,7 +31,7 @@ function createModal(question, answer) {
 
 	if(question.acceptedAnswer) {
 		var svgPath = chrome.extension.getURL('images/check.svg')
-		answerTitle = '<hr/><div><img class="check" src="' + svgPath + '" alt="Check icon">&nbsp;<h2 class="heading answer__title" >Answer</h2></div>'
+		answerTitle = '<hr/><div><h2 class="heading answer__title" >Answer</h2>&nbsp;<img class="check" src="' + svgPath + '" alt="Check icon"></div>'
 	}
 
 	modal.setContent('<h1 class="heading">' + question.title + '</h1>' + question.body + answerTitle + answer.body)
