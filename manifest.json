@@ -1,9 +1,9 @@
 {
-    "name": "stackoverride",
+    "name": "Stack Override",
     "version": "1.0",
-    "description": "Trova la migliore risposta su Stack Overflow!",
+    "description": "Find the best answer on Stack Overflow!",
     "manifest_version": 2,
-    "permissions": ["storage", "declarativeContent", "activeTab"],
+    "permissions": [],
     "web_accessible_resources": ["images/check.svg"],
     "page_action": {
         "default_icon": {
