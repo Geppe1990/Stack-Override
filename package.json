@@ -4,7 +4,7 @@
   "description": "Find the best answer on Stack Overflow!",
   "main": "contentScript.js",
   "scripts": {
-    "start": "gulp watch"
+    "start": "gulp default"
   },
   "repository": {
     "type": "git",

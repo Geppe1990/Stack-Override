@@ -18,5 +18,8 @@ Install and develop
 	- gulp compress
 	- gulp build
 
+Develop with Docker
+	- docker-compose up
+
 TODO:
 	- verificare permissions in manifest.json
