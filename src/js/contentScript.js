@@ -52,7 +52,7 @@ async function getContent(id, type) {
 
 function manageAnswers(data) {
 	var questionAnswer = null
-	var score = 0
+	var score = -1
 	var answers = data.items
 
 	answers.forEach(answer => {
