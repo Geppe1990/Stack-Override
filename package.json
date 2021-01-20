@@ -4,7 +4,8 @@
   "description": "Find the best answer on Stack Overflow!",
   "main": "contentScript.js",
   "scripts": {
-    "start": "gulp default"
+    "start": "gulp default",
+    "deploy": "rm -rf deploy && npm install && gulp build && cp -av images lib dist manifest.json package.json deploy && cd deploy && npm install --only=prod"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
     "gulp-eslint": "^6.0.0",
     "gulp-rename": "^2.0.0",
     "gulp-sass": "^4.1.0",
+    "gulp-sourcemaps": "^3.0.0",
     "gulp-uglify": "^3.0.2",
     "node-sass": "^5.0.0",
     "readable-stream": "^3.6.0"
