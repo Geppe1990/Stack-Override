@@ -19,4 +19,4 @@ Install and develop
 	- gulp build
 
 TODO:
-	- verificare permissions in manifest.json
+	- Permettere la copia all'interno della modale

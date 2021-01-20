@@ -5,7 +5,7 @@
   "main": "contentScript.js",
   "scripts": {
     "start": "gulp default",
-    "deploy": "rm -rf deploy && npm install && gulp build && cp -av images lib dist manifest.json package.json deploy && cd deploy && npm install --only=prod"
+    "deploy": "rm -rf node_modules && npm install --only=prod && zip -r stackoverride.zip . && npm install"
   },
   "repository": {
     "type": "git",
