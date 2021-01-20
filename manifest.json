@@ -28,8 +28,8 @@
             "./lib/highlight/styles/default.css"
         ],
         "js": [
-            "./node_modules/tingle.js/dist/tingle.min.js", 
-            "./src/js/contentScript.js",
+            "./node_modules/tingle.js/dist/tingle.min.js",
+            "./dist/js/contentScript.min.js",
             "./lib/highlight/highlight.pack.js"
         ]
     }]
