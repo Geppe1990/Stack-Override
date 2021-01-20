@@ -3,7 +3,6 @@
     "version": "1.0",
     "description": "Find the best answer on Stack Overflow!",
     "manifest_version": 2,
-    "permissions": [],
     "web_accessible_resources": ["images/check.svg"],
     "page_action": {
         "default_icon": {
